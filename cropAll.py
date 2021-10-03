@@ -12,11 +12,55 @@ import imutils
 import os
 
 
-def crop_contour_brain_img(path):
+def crop_contour_brain_img(imgpath):
+    # Creating the new folder for saving cropped images
+    path = os.getcwd()
+    os.chdir(path)
+    new_folder = 'Project_images_1'
+    os.makedirs(new_folder)
 
-    for directory_path in glob.glob(path):
+    # Creating folder inside "project_images_1" folder
+    path2 = path+'\\'+new_folder
+    os.chdir(path2)
+    for i in range(1,3):
+        if i == 1:
+            new_folder1 = 'train1'
+            os.makedirs(new_folder1)
+        else:
+            new_folder2 = 'validation1'
+            os.makedirs(new_folder2)
+
+    # Creating folders inside "train1" folder
+    path3 = path2 + '\\' + new_folder1
+    os.chdir(path3)
+    for j in range(1,4):
+        if j == 1:
+            os.makedirs('Hamorrhage Stroke')
+        elif j == 2:
+            os.makedirs('Ischemic Stroke')
+        else:
+            os.makedirs('Normal')
+
+    # Creating folders inside "train1" folder
+    path4 = path2 + '\\' + new_folder2
+    os.chdir(path4)
+    for k in range(1,4):
+        if k == 1:
+            os.makedirs('Hamorrhage Stroke')
+        elif k == 2:
+            os.makedirs('Ischemic Stroke')
+        else:
+            os.makedirs('Normal')
+
+    os.chdir(path)
+    
+
+
+    # Cropping all the images in the given diretory path and saving to newly created folder
+
+    for directory_path in glob.glob(imgpath):
         img_number = 1
-        #print(directory_path)
+        print(directory_path)
         for img_path in glob.glob(os.path.join(directory_path, "*.jpg")):
             # print(img_path)
             image = cv2.imread(img_path)
@@ -59,10 +103,9 @@ def crop_contour_brain_img(path):
                 print('Cannot Copy Images')
 
             img_number +=1
-        #print('______________________________END_____________________________')
+        print('___________________________________________________________')
 
-    return None
+    print('New Directory created as Project_images_1 saving all the cropped images.')
 
 if __name__ == '__main__':
-    
-     crop_contour_brain_img(fldrPath)  # providing the folder path as parameter to function
+     crop_contour_brain_img("fldrpath")  # providing the folder path as parameter to function
